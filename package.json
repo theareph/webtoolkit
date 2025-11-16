@@ -1,0 +1,22 @@
+{
+  "name": "webtoolkit",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "format": "prettier . --write",
+    "dev": "bun run --watch src/index.ts --env-file=.env",
+    "start": "bun run src/index.ts"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "prettier": "^3.6.2"
+  }
+}
