@@ -1,22 +1,30 @@
-from django.http import HttpRequest, HttpResponseNotFound
+from django.http import HttpRequest, HttpResponseBadRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models
 
 
-# Create your views here.
 def home(request):
     return render(request, "core/home.html")
 
 
-class URLShortenerView(View):
+class RegisterView(View):
+    def get(self, request: HttpRequest): ...
+    def post(self, request: HttpRequest): ...
+
+
+class URLShortenerView(LoginRequiredMixin, View):
+
     def get(self, request: HttpRequest):
         return render(request, "core/url_shortener.html")
 
     def post(self, request: HttpRequest):
         url = request.POST.get("url")
+        if not url:
+            return HttpResponseBadRequest()
         created = models.ShortenedURL.create(url)
         shortened_url = request.build_absolute_uri(
             reverse(
@@ -28,7 +36,9 @@ class URLShortenerView(View):
         )
 
         return render(
-            request, "core/url_shortener.html", {"shortened_url": shortened_url}
+            request,
+            "core/url_shortener.html",
+            {"shortened_url": shortened_url},
         )
 
 

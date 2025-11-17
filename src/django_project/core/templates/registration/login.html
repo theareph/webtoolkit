@@ -1,0 +1,21 @@
+{% extends 'core/include/base.html' %}
+
+
+{% block body %}
+<form method="POST" id="login-form">
+    {% csrf_token %}
+    username<br>
+    <input name="username" type="text"><br>
+    password<br>
+    <input name="password" type="password"><br>
+    <a href="#" id="login-form-btn">Login</a>
+</form>
+{% endblock body %}
+{% block after_body %}
+<script>
+    const loginFormBtn = document.querySelector("#login-form-btn");
+    if (loginFormBtn) {
+        loginFormBtn.addEventListener("click", () => document.querySelector("#login-form").submit())
+    }
+</script>
+{% endblock after_body %}
