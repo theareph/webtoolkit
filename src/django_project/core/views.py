@@ -1,30 +1,33 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponseBadRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
-from django.conf import settings
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user_model, login
 
 from . import models
 
 User = get_user_model()
+
 
 def get_common_context():
     return {
         "enable_registration": getattr(settings, "ENABLE_REGISTRATION", False),
     }
 
+
 def home(request):
     return render(request, "core/home.html", get_common_context())
 
 
 class RegisterView(View):
-    def get(self, request: HttpRequest): 
+    def get(self, request: HttpRequest):
         if not getattr(settings, "ENABLE_REGISTRATION", False):
             return HttpResponseNotFound()
         return render(request, "core/register.html", get_common_context())
-    def post(self, request: HttpRequest): 
+
+    def post(self, request: HttpRequest):
         if not getattr(settings, "ENABLE_REGISTRATION", False):
             return HttpResponseNotFound()
 
@@ -38,7 +41,6 @@ class RegisterView(View):
 
 
 class URLShortenerView(LoginRequiredMixin, View):
-
     def get(self, request: HttpRequest):
         return render(request, "core/url_shortener.html", get_common_context())
 

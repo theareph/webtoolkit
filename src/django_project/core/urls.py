@@ -24,5 +24,4 @@ urlpatterns = [
         views.RegisterView.as_view(),
         name="register",
     ),
-
 ]
