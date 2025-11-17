@@ -9,21 +9,34 @@
   <meta name="description" content="" />
   <link rel="icon" href="favicon.png">
 </head>
+<style>
+    .red-border {
+        border: 1px #ff0000 solid;
+    }
+    a.link {
+        text-decoration: underline;
+        color: #000000;
+    }
+</style>
 <body>
   <h1>Web Toolkit</h1>
   <h5>
 
-  <a href="{% url "core:home" %}">Home</a>
-  <a href="{% url "core:url_shortener" %}">URL Shortener</a>
+  <a class="link" href="{% url "core:home" %}">Home</a>
+  <a class="link" href="{% url "core:url_shortener" %}">URL Shortener</a>
   {% if request.user.is_authenticated %}
 
-  <a href="#" id="logout-btn">Logout</a>
+  <a class="link" href="#" id="logout-btn">Logout</a>
   <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: none;">
     {% csrf_token %}
   </form>
   {% else %}
 
-  <a href="{% url "login" %}">Login</a>
+  <a class="link" href="{% url "login" %}">Login</a>
+
+  {% if enable_registration %}
+  <a class="link" href="{% url "core:register" %}">Register</a>
+  {% endif %}
   
 
   {% endif %}

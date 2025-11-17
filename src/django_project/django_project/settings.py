@@ -128,3 +128,5 @@ SHELL_PLUS = "ipython"
 
 LOGOUT_REDIRECT_URL = "core:home"
 LOGIN_REDIRECT_URL = "core:home"
+
+ENABLE_REGISTRATION = False

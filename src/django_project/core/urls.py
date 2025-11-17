@@ -19,4 +19,10 @@ urlpatterns = [
         views.url_shortener_redirect,
         name="url_shortener_redirect",
     ),
+    path(
+        f"register/",
+        views.RegisterView.as_view(),
+        name="register",
+    ),
+
 ]
