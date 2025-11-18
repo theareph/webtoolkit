@@ -63,15 +63,15 @@ class UploadedFile(models.Model):
     def create(cls, file, owner):
         _, ext = os.path.splitext(file.name)
         return cls.objects.create(
-            alias=get_alias(cls),
+            alias=get_alias(cls, 8),
             ext=ext,
             file=file,
             owner=owner,
         )
 
 
-def get_alias(model: type[UploadedFile] | type[ShortenedURL]) -> str:
-    current_length = 3
+def get_alias(model: type[UploadedFile] | type[ShortenedURL], start_length=3) -> str:
+    current_length = start_length
     while model.objects.count() / (len(available_chars) ** current_length) >= 0.3:
         current_length += 1
     alias = generate_alias(current_length)

@@ -118,6 +118,15 @@ class FileHostingView(LoginRequiredMixin, View):
                 "core/file_hosting.html",
                 get_common_context() | {"errors": errors},
             )
+        if "file" not in request.FILES:
+            errors.append("Bad Request!")
+            return render(
+                request,
+                "core/file_hosting.html",
+                get_common_context() | {"errors": errors},
+            )
+
+
 
         if content_length > common_context["file_hosting_max_size"]:
             errors.append(f"File too large (size: {content_length / 1024 / 1024} MB)")
