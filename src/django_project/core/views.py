@@ -180,6 +180,7 @@ class FileHostingView(LoginRequiredMixin, View):
                 common_context | {"errors": errors},
             )
         created = models.UploadedFile.create(request.FILES["file"], request.user)
+        common_context["page"] = self.get_page()
         file_url = request.build_absolute_uri(
             reverse(
                 "core:file_redirect",
