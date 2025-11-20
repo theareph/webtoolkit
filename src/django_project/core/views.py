@@ -221,7 +221,25 @@ def file_delete(request: HttpRequest, alias_filename: str):
         models.UploadedFile,
         alias=alias,
         ext=ext,
+        owner=request.user,
     )
     file_obj.delete()
 
     return redirect(reverse("core:file_hosting") + f"?page={page}")
+
+
+@login_required
+def about_user(request):
+    context = get_common_context() | {
+        "total_uploaded_files": models.UploadedFile.objects.filter(
+            owner=request.user
+        ).count(),
+        "total_shortened_urls": models.ShortenedURL.objects.filter(
+            owner=request.user
+        ).count(),
+    }
+    return render(
+        request,
+        "core/about_user.html",
+        context,
+    )

@@ -44,4 +44,9 @@ urlpatterns = [
         views.RegisterView.as_view(),
         name="register",
     ),
+    path(
+        f"about-user/",
+        views.about_user,
+        name="about_user",
+    ),
 ]
