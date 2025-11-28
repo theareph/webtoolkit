@@ -3,8 +3,6 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch import receiver
 
 from core.utils.url_shortener import available_chars, generate_alias
 
@@ -82,31 +80,6 @@ class UploadedFile(models.Model):
 
     def file_size_mb(self):
         return round(self.file.size / 1024 / 1024, 4)
-
-
-# Signal to delete files when instance is deleted
-@receiver(post_delete, sender=UploadedFile)
-def delete_files_on_model_delete(sender, instance, **kwargs):
-    """Delete file from filesystem when model instance is deleted."""
-    if instance.file:
-        if os.path.isfile(instance.file.path):
-            os.remove(instance.file.path)
-
-
-@receiver(pre_save, sender=UploadedFile)
-def delete_old_file_on_update(sender, instance, **kwargs):
-    """Delete old file when replacing with new one."""
-    if not instance.pk:
-        return  # New instance, nothing to delete
-
-    try:
-        old_instance = UploadedFile.objects.get(pk=instance.pk)
-    except UploadedFile.DoesNotExist:
-        return
-
-    if old_instance.file and old_instance.file != instance.file:
-        if os.path.isfile(old_instance.file.path):
-            os.remove(old_instance.file.path)
 
 
 def get_alias(model: type[UploadedFile] | type[ShortenedURL], start_length=3) -> str:
