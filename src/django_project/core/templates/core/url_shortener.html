@@ -14,15 +14,16 @@ url shortener<br>
 {% endif %}
 <form action="{% url "core:url_shortener" %}" method="POST">
     {% csrf_token %}
-    <textarea name="url" type="text" id="shorten-input"></textarea>
-    <button type="submit">Shorten!</button>
+    <textarea name="url" type="text" id="shorten-input"></textarea><br>
+    <input type="checkbox" name="is_public" value="is_public" id="is-public-input"><label for="is-public-input">Public? (Public URLs could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
+    <button type="submit" style="font-size: 1.3em;">Shorten!</button>
 </form>
 <hr>
 {% if page %}
 
 <h3>Shortened URLs</h3>
 {% for item in page.object_list %}
-<p><a class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }}</a> &nbsp;&nbsp;
+<p><a class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }} ({{ item.visibility }})</a> &nbsp;&nbsp;
 
 <a class="link" href="{% url "core:url_shortener_url_delete" item.alias %}?page={{ page.number }}">Delete</button>
 

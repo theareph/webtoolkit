@@ -25,13 +25,21 @@ class ShortenedURL(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+    is_public = models.BooleanField(default=False,)
+
+    def visibility(self):
+        if self.is_public:
+            return "Public"
+        else:
+            return "Private"
 
     @classmethod
-    def create(cls, url: str, owner: User | None = None):
+    def create(cls, url: str, owner: User | None = None, is_public = False):
         return cls.objects.create(
             alias=get_alias(cls),
             url=url,
             owner=owner,
+            is_public=is_public,
         )
 
     def url_display(self) -> str:
@@ -61,15 +69,22 @@ class UploadedFile(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+    is_public = models.BooleanField(default=False,)
+    def visibility(self):
+        if self.is_public:
+            return "Public"
+        else:
+            return "Private"
 
     @classmethod
-    def create(cls, file, owner):
+    def create(cls, file, owner, is_public=False,):
         _, ext = os.path.splitext(file.name)
         return cls.objects.create(
             alias=get_alias(cls, 8),
             ext=ext,
             file=file,
             owner=owner,
+            is_public=is_public,
         )
 
     def alias_filename(self):

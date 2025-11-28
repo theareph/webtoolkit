@@ -1,7 +1,6 @@
-import typing as t
-
 from django.core.paginator import Page, Paginator
 from django.db.models import Model
+from ..models import ShortenedURL, UploadedFile
 
 
 def get_paginated_items(
@@ -19,3 +18,9 @@ def get_paginated_items(
     if page > p.num_pages:
         return None
     return p.page(page)
+
+def get_latest_uploaded_files(is_public=True, count=10):
+    return UploadedFile.objects.filter(is_public=is_public,).order_by("-inserted_at")[:count]
+
+def get_latest_shortened_urls(is_public=True, count=10):
+    return ShortenedURL.objects.filter(is_public=is_public,).order_by("-inserted_at")[:count]

@@ -12,7 +12,7 @@ from django.views import View
 
 from . import models
 from .utils import url_shortener as url_shortener_utils
-from .utils.common import get_paginated_items
+from .utils.common import get_paginated_items, get_latest_shortened_urls, get_latest_uploaded_files
 
 User = get_user_model()
 
@@ -29,7 +29,12 @@ def get_common_context() -> dict[str, t.Any]:
 
 
 def home(request):
-    return render(request, "core/home.html", get_common_context())
+    context = get_common_context()
+    context |= {
+        "latest_urls": get_latest_shortened_urls(),
+        "latest_files": get_latest_uploaded_files(),
+    }
+    return render(request, "core/home.html", context,)
 
 
 class RegisterView(View):
@@ -84,10 +89,12 @@ class URLShortenerView(LoginRequiredMixin, View):
                 "core/url_shortener.html",
                 common_context | {"errors": errors},
             )
+        is_public = bool(request.POST.get("is_public"))
 
         created = models.ShortenedURL.create(
             url,
             request.user,
+            is_public,
         )
         common_context["page"] = self.get_page()
         shortened_url = request.build_absolute_uri(
@@ -179,7 +186,10 @@ class FileHostingView(LoginRequiredMixin, View):
                 "core/file_hosting.html",
                 common_context | {"errors": errors},
             )
-        created = models.UploadedFile.create(request.FILES["file"], request.user)
+
+        is_public = bool(request.POST.get("is_public"))
+        created = models.UploadedFile.create(request.FILES["file"], request.user, is_public)
+
         common_context["page"] = self.get_page()
         file_url = request.build_absolute_uri(
             reverse(
