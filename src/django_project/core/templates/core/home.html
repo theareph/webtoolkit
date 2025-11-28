@@ -5,7 +5,7 @@ File hosting and url shortening service.
 
 {% if latest_urls %}
 
-<h3>Latest URLs</h3>
+<h3>Latest URLs (Public)</h3>
 {% for item in latest_urls %}
 <p><a class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }}</a> &nbsp;&nbsp;
 {% endfor %}
@@ -13,7 +13,7 @@ File hosting and url shortening service.
 
 
 {% if latest_files %}
-<h3>Latest Files</h3>
+<h3>Latest Files (Public)</h3>
 {% for item in latest_files %}
 <p><a class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB)</a> &nbsp;&nbsp;
 {% endfor %}
