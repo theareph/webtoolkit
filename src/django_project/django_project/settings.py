@@ -159,7 +159,13 @@ MB = 1024 * 1024
 
 FILE_HOSTING_MAX_SIZE = 512 * MB
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = env.str(
+    "MEDIA_ROOT",
+    os.path.join(
+        BASE_DIR,
+        "media",
+    ),
+)
 
 STORAGES = {
     "default": {
