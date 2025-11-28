@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0002_uploadedfile'),
+        ("core", "0002_uploadedfile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='shortenedurl',
-            name='is_public',
+            model_name="shortenedurl",
+            name="is_public",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='uploadedfile',
-            name='is_public',
+            model_name="uploadedfile",
+            name="is_public",
             field=models.BooleanField(default=False),
         ),
     ]

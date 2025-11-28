@@ -12,7 +12,11 @@ from django.views import View
 
 from . import models
 from .utils import url_shortener as url_shortener_utils
-from .utils.common import get_paginated_items, get_latest_shortened_urls, get_latest_uploaded_files
+from .utils.common import (
+    get_latest_shortened_urls,
+    get_latest_uploaded_files,
+    get_paginated_items,
+)
 
 User = get_user_model()
 
@@ -34,7 +38,11 @@ def home(request):
         "latest_urls": get_latest_shortened_urls(),
         "latest_files": get_latest_uploaded_files(),
     }
-    return render(request, "core/home.html", context,)
+    return render(
+        request,
+        "core/home.html",
+        context,
+    )
 
 
 class RegisterView(View):
@@ -188,7 +196,9 @@ class FileHostingView(LoginRequiredMixin, View):
             )
 
         is_public = bool(request.POST.get("is_public"))
-        created = models.UploadedFile.create(request.FILES["file"], request.user, is_public)
+        created = models.UploadedFile.create(
+            request.FILES["file"], request.user, is_public
+        )
 
         common_context["page"] = self.get_page()
         file_url = request.build_absolute_uri(
