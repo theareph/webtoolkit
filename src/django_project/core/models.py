@@ -1,3 +1,6 @@
+from django.db.models.signals import post_delete
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import os
 import uuid
 
@@ -82,6 +85,31 @@ class UploadedFile(models.Model):
         return round(self.file.size / 1024 / 1024, 4)
 
 
+# Signal to delete files when instance is deleted
+@receiver(post_delete, sender=UploadedFile)
+def delete_files_on_model_delete(sender, instance, **kwargs):
+    """Delete file from filesystem when model instance is deleted."""
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
+    
+
+
+@receiver(post_save, sender=UploadedFile)
+def delete_old_file_on_update(sender, instance, **kwargs):
+    """Delete old file when replacing with new one."""
+    if not instance.pk:
+        return  # New instance, nothing to delete
+    
+    try:
+        old_instance = UploadedFile.objects.get(pk=instance.pk)
+    except UploadedFile.DoesNotExist:
+        return
+    
+    if old_instance.file and old_instance.file != instance.file:
+        if os.path.isfile(old_instance.file.path):
+            os.remove(old_instance.file.path)
+    
 def get_alias(model: type[UploadedFile] | type[ShortenedURL], start_length=3) -> str:
     current_length = start_length
     while model.objects.count() / (len(available_chars) ** current_length) >= 0.3:
