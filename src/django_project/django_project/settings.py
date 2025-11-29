@@ -159,7 +159,7 @@ LOGIN_URL = (
     "core:login"  # resolve "core:login" instead of using hardcoded "/accounts/login/"
 )
 
-ENABLE_REGISTRATION = True
+ENABLE_REGISTRATION = env.bool("ENABLE_REGISTRATION")
 MB = 1024 * 1024
 
 FILE_HOSTING_MAX_SIZE = 512 * MB
