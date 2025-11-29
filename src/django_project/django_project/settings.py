@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "core",
     "django_cleanup.apps.CleanupConfig",
+    
+    "django_htmx",
 ]
 
 MIDDLEWARE = [
@@ -78,6 +80,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -153,9 +156,9 @@ SHELL_PLUS = "ipython"
 
 LOGOUT_REDIRECT_URL = "core:home"
 LOGIN_REDIRECT_URL = "core:home"
-LOGIN_URL = "login"  # resolve "login" instead of using hardcoded "/accounts/login/"
+LOGIN_URL = "core:login"  # resolve "core:login" instead of using hardcoded "/accounts/login/"
 
-ENABLE_REGISTRATION = False
+ENABLE_REGISTRATION = True
 MB = 1024 * 1024
 
 FILE_HOSTING_MAX_SIZE = 512 * MB

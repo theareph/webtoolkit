@@ -1,0 +1,29 @@
+{% extends "core/_base_body.html" %}
+{% block after_body %}
+<script>
+    function logout() {
+
+        document.querySelector("#logout-form").submit()
+
+    }
+
+    function register() {
+
+        const registerFormBtn = document.querySelector("#register-form-btn");
+    if (registerFormBtn) {
+        registerFormBtn.addEventListener("click", () => {
+            const passwordInput = document.querySelector("#password-input")
+            const passwordConfirmInput = document.querySelector("#password-confirm-input")
+            if (passwordInput.value !== passwordConfirmInput.value) {
+                passwordInput.classList.add("red-border")
+            } else {
+                passwordInput.classList.remove("red-border")
+                document.querySelector("#register-form").submit()
+            }
+        })
+    }
+
+
+    }
+</script>
+{% endblock %}

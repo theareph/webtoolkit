@@ -9,6 +9,7 @@ from django.http import HttpRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
+from django.contrib.auth.views import LoginView as DjangoLoginView
 
 from . import models
 from .utils import url_shortener as url_shortener_utils
@@ -33,16 +34,41 @@ def get_common_context() -> dict[str, t.Any]:
 
 
 def home(request):
+        
     context = get_common_context()
     context |= {
         "latest_urls": get_latest_shortened_urls(),
         "latest_files": get_latest_uploaded_files(),
     }
-    return render(
-        request,
-        "core/home.html",
-        context,
-    )
+
+    if request.htmx.boosted:
+        return render(
+            request,
+            "core/htmx_boosted/home.html",
+            context,
+        )
+
+    else:
+        return render(
+            request,
+            "core/home.html",
+            context,
+        )
+    
+
+class LoginView(DjangoLoginView):
+    @t.override
+    def get_context_data(self, **kwargs: t.Any) -> dict[str, t.Any]:
+        return get_common_context() | super().get_context_data(**kwargs)
+    @t.override
+    def get_template_names(self) -> list[str]:
+        template_names = super().get_template_names()
+
+        if self.request.htmx.boosted:
+            template_names = ["core/htmx_boosted/login.html"] + template_names
+
+        return template_names
+
 
 
 class RegisterView(View):

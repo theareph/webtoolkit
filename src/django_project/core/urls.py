@@ -45,6 +45,12 @@ urlpatterns = [
         name="register",
     ),
     path(
+        f"login/",
+        views.LoginView.as_view(),
+        name="login",
+    ),
+
+    path(
         f"about-user/",
         views.about_user,
         name="about_user",

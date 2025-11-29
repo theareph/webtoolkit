@@ -1,3 +1,4 @@
+ {% load django_htmx %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,6 +9,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
   <link rel="icon" href="favicon.png">
+   {% htmx_script %}
 </head>
 <style>
     .red-border {
@@ -18,7 +20,8 @@
         color: #000000;
     }
 </style>
-<body>
+
+<body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' hx-boost="true">
   <h1>Web Toolkit</h1>
   <h5>
 
@@ -28,15 +31,15 @@
   {% if request.user.is_authenticated %}
 
 
-  <a class="link" href="#" id="logout-btn">Logout</a>
-  <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: none;">
+  <a class="link" href="#" id="logout-btn" onclick="logout()" hx-boost="false">Logout</a>
+  <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: none;" hx-boost="false">
     {% csrf_token %}
   </form>
 
   <a class="link" href="{% url "core:about_user" %}">About</a>
   {% else %}
 
-  <a class="link" href="{% url "login" %}">Login</a>
+  <a class="link" href="{% url "core:login" %}">Login</a>
 
   {% if enable_registration %}
   <a class="link" href="{% url "core:register" %}">Register</a>
@@ -48,12 +51,6 @@
   {% block body %}{% endblock body %}
 
 </body>
-<script>
-    const logoutBtn = document.querySelector("#logout-btn")
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => document.querySelector("#logout-form").submit())
-    }
-</script>
 
 {% block after_body %}{% endblock after_body %}
 </html>

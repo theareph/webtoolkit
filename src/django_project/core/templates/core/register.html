@@ -1,9 +1,9 @@
-{% extends 'core/include/base.html' %}
+{% extends 'core/_base.html' %}
 
 
 {% block body %}
 <h2>Register</h2>
-<form method="POST" id="register-form">
+<form method="POST" id="register-form" hx-boost="false">
     {% csrf_token %}
     username<br>
     <input name="username" type="text"><br>
@@ -12,23 +12,10 @@
     confirm password<br>
     <input name="password-confirm" type="password" id="password-confirm-input"><br>
 
-    <a href="#" id="register-form-btn">Register</a>
+    <button type="submit">Register</button>
 </form>
 {% endblock body %}
 {% block after_body %}
 <script>
-    const registerFormBtn = document.querySelector("#register-form-btn");
-    if (registerFormBtn) {
-        registerFormBtn.addEventListener("click", () => {
-            const passwordInput = document.querySelector("#password-input")
-            const passwordConfirmInput = document.querySelector("#password-confirm-input")
-            if (passwordInput.value !== passwordConfirmInput.value) {
-                passwordInput.classList.add("red-border")
-            } else {
-                passwordInput.classList.remove("red-border")
-                document.querySelector("#register-form").submit()
-            }
-        })
-    }
 </script>
 {% endblock after_body %}
