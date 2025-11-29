@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     "django_extensions",
     "core",
     "django_cleanup.apps.CleanupConfig",
-    
     "django_htmx",
 ]
 
@@ -156,7 +155,9 @@ SHELL_PLUS = "ipython"
 
 LOGOUT_REDIRECT_URL = "core:home"
 LOGIN_REDIRECT_URL = "core:home"
-LOGIN_URL = "core:login"  # resolve "core:login" instead of using hardcoded "/accounts/login/"
+LOGIN_URL = (
+    "core:login"  # resolve "core:login" instead of using hardcoded "/accounts/login/"
+)
 
 ENABLE_REGISTRATION = True
 MB = 1024 * 1024

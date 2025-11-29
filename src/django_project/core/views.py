@@ -5,11 +5,11 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.http import HttpRequest, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
-from django.contrib.auth.views import LoginView as DjangoLoginView
 
 from . import models
 from .utils import url_shortener as url_shortener_utils
@@ -34,7 +34,6 @@ def get_common_context() -> dict[str, t.Any]:
 
 
 def home(request):
-        
     context = get_common_context()
     context |= {
         "latest_urls": get_latest_shortened_urls(),
@@ -54,12 +53,13 @@ def home(request):
             "core/home.html",
             context,
         )
-    
+
 
 class LoginView(DjangoLoginView):
     @t.override
     def get_context_data(self, **kwargs: t.Any) -> dict[str, t.Any]:
         return get_common_context() | super().get_context_data(**kwargs)
+
     @t.override
     def get_template_names(self) -> list[str]:
         template_names = super().get_template_names()
@@ -68,7 +68,6 @@ class LoginView(DjangoLoginView):
             template_names = ["core/htmx_boosted/login.html"] + template_names
 
         return template_names
-
 
 
 class RegisterView(View):
