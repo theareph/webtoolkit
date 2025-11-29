@@ -21,7 +21,7 @@ File Hosting<br>
 {% if page %}
 <h3>Uploaded Files</h3>
 {% for item in page.object_list %}
-<p><a class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB, {{ item.visibility }})</a> &nbsp;&nbsp;
+<p><a hx-boost="false" class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB, {{ item.visibility }})</a> &nbsp;&nbsp;
 
 <a class="link" href="{% url "core:file_delete" item.alias_filename %}?page={{ page.number }}">Delete</button>
 

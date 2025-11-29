@@ -10,7 +10,7 @@ Source Code (Host Your Own): <a class="link" href="https://github.com/theareph/w
 
 <h3>Latest URLs (Public)</h3>
 {% for item in latest_urls %}
-<p><a class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }}</a> &nbsp;&nbsp;
+<p><a hx-boost="false" class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }}</a> &nbsp;&nbsp;
 {% endfor %}
 {% endif %}
 
@@ -18,7 +18,7 @@ Source Code (Host Your Own): <a class="link" href="https://github.com/theareph/w
 {% if latest_files %}
 <h3>Latest Files (Public)</h3>
 {% for item in latest_files %}
-<p><a class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB)</a> &nbsp;&nbsp;
+<p><a hx-boost="false" class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB)</a> &nbsp;&nbsp;
 {% endfor %}
 {% endif %}
 {% endblock body %}

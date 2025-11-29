@@ -23,7 +23,7 @@ url shortener<br>
 
 <h3>Shortened URLs</h3>
 {% for item in page.object_list %}
-<p><a class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }} ({{ item.visibility }})</a> &nbsp;&nbsp;
+<p><a hx-boost="false" class="link" href="{% url "core:url_shortener_url" item.alias %}">{{ item.url_display }} ({{ item.visibility }})</a> &nbsp;&nbsp;
 
 <a class="link" href="{% url "core:url_shortener_url_delete" item.alias %}?page={{ page.number }}">Delete</button>
 
