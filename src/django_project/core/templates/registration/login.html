@@ -2,6 +2,7 @@
 
 
 {% block body %}
+
 <h2>Login</h2>
 <form method="POST" id="login-form" hx-boost="false">
     {% csrf_token %}
@@ -9,6 +10,6 @@
     <input name="username" type="text"><br>
     password<br>
     <input name="password" type="password"><br>
-    <button type="submit">Login</a>
+    <button class="btn btn-primary" type="submit">Login</a>
 </form>
 {% endblock body %}

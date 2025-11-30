@@ -1,3 +1,4 @@
+{% load static %}
  {% load django_htmx %}
 <!DOCTYPE html>
 
@@ -10,6 +11,7 @@
   <meta name="description" content="" />
   <link rel="icon" href="favicon.png">
    {% htmx_script %}
+   <link rel="stylesheet" href="{% static "core/bootstrap.min.css" %}">
 </head>
 <style>
     .red-border {
@@ -22,6 +24,7 @@
 </style>
 
 <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' hx-boost="true">
+  <div class="container">
   <h1>Web Toolkit</h1>
   <h5>
 
@@ -50,7 +53,11 @@
 </h2>
   {% block body %}{% endblock body %}
 
+
+</div>
 </body>
 
+
+<script src="{% static "core/bootstrap.min.js" %}"></script>
 {% block after_body %}{% endblock after_body %}
 </html>

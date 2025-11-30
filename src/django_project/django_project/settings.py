@@ -181,4 +181,7 @@ STORAGES = {
     },
 }
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 STATIC_ROOT = BASE_DIR / "static_root"

@@ -71,6 +71,9 @@ class RegisterView(View):
 
         username = request.POST.get("username")
         password = request.POST.get("password")
+        if not username or not password:
+            return render(request, "core/register.html", get_common_context() | {"errors": ["invalid username or password."]})
+            
         if User.objects.filter(username=username).exists():
             return render(request, "core/register.html", get_common_context())
         user = User.objects.create_user(username, password=password)
