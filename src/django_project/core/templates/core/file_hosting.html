@@ -14,9 +14,9 @@ File Hosting<br>
 {% endif %}
 <form action="{% url "core:file_hosting" %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <input name="file" type="file" id="file-input"> (Max Size: {{ file_hosting_max_size_mb }} MB )<br><br>
-    <input name="is_public" type="checkbox" id="is-public-input" value="is_public"> <label for="is-public-input">Public? (Public files could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
-    <button type="submit" style="font-size: 1.3em">Upload!</button>
+    <input class="file-input file-input-primary" name="file" type="file" id="file-input"> (Max Size: {{ file_hosting_max_size_mb }} MB )<br><br>
+    <input name="is_public" type="checkbox" id="is-public-input" value="is_public" class="checkbox"> <label for="is-public-input">Public? (Public files could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
+    <button type="submit" class="btn btn-primary" >Upload!</button>
 </form>
 {% if page %}
 <h3>Uploaded Files</h3>

@@ -14,9 +14,13 @@ url shortener<br>
 {% endif %}
 <form action="{% url "core:url_shortener" %}" method="POST">
     {% csrf_token %}
-    <textarea name="url" type="text" id="shorten-input"></textarea><br>
-    <input type="checkbox" name="is_public" value="is_public" id="is-public-input"><label for="is-public-input">Public? (Public URLs could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
-    <button type="submit" style="font-size: 1.3em;">Shorten!</button>
+    <fieldset class="fieldset">
+  <legend class="fieldset-legend">URL to Shorten</legend>
+  <textarea class="textarea h-24" placeholder="https://example.com" name="url"></textarea>
+  <div class="label">*</div>
+</fieldset>
+    <input class="checkbox" type="checkbox" name="is_public" value="is_public" id="is-public-input"><label for="is-public-input">Public? (Public URLs could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
+    <button type="submit" class="btn btn-primary">Shorten!</button>
 </form>
 <hr>
 {% if page %}

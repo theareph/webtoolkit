@@ -7,9 +7,9 @@
 <form method="POST" id="login-form" hx-boost="false">
     {% csrf_token %}
     username<br>
-    <input name="username" type="text"><br>
+    <input name="username" type="text" class="input"><br>
     password<br>
-    <input name="password" type="password"><br>
-    <button class="btn btn-primary" type="submit">Login</a>
+    <input name="password" type="password" class="input"><br>
+    <button class="btn btn-neutral" type="submit">Login</a>
 </form>
 {% endblock body %}

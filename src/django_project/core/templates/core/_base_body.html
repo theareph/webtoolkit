@@ -11,22 +11,19 @@
   <meta name="description" content="" />
   <link rel="icon" href="favicon.png">
    {% htmx_script %}
-   <link rel="stylesheet" href="{% static "core/bootstrap.min.css" %}">
+   <link href="{% static 'core/output.css' %}" rel="stylesheet" type="text/css" />
 </head>
 <style>
     .red-border {
         border: 1px #ff0000 solid;
     }
-    a.link {
-        text-decoration: underline;
-        color: #000000;
-    }
 </style>
 
 <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}' hx-boost="true">
-  <div class="container">
+  <div class="hero bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+  
   <h1>Web Toolkit</h1>
-  <h5>
 
   <a class="link" href="{% url "core:home" %}">Home</a>
   <a class="link" href="{% url "core:url_shortener" %}">URL Shortener</a>
@@ -47,17 +44,21 @@
   {% if enable_registration %}
   <a class="link" href="{% url "core:register" %}">Register</a>
   {% endif %}
-  
 
   {% endif %}
-</h2>
-  {% block body %}{% endblock body %}
-
 
 </div>
+
+</div>
+
+  <div class="hero bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+  {% block body %}{% endblock body %}
+</div>
+  </div>
+
 </body>
 
 
-<script src="{% static "core/bootstrap.bundle.min.js" %}"></script>
 {% block after_body %}{% endblock after_body %}
 </html>
