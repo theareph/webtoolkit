@@ -2,12 +2,10 @@ dev:
 	DEBUG=true uv run manage.py runserver
 
 # Runs production server.
-prod:
-	just static
+prod: static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
 
-static:
-	just tailwind-no-watch
+static: tailwind-no-watch
 	uv run manage.py collectstatic --noinput
 
 static-no-cache:
@@ -32,10 +30,8 @@ opt:
 	[ -f "./.opt/daisyui-theme.mjs" ] || curl -Lo .opt/daisyui-theme.mjs https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.mjs
 
 # You can ignore the `sh: 1: watchman: not found` error (it will fallback to another watcher). This starts tailwind to watch HTML changes across the whole project and recompile the output.css.
-tailwind:
-	just opt
+tailwind: opt
 	./.opt/tailwindcss -i ./.opt/input.css -o static/core/output.css --watch
 
-tailwind-no-watch:
-	just opt
+tailwind-no-watch: opt
 	./.opt/tailwindcss -i ./.opt/input.css -o static/core/output.css
