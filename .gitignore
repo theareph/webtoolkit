@@ -14,3 +14,5 @@ static_root
 db.sqlite3
 media
 .opt
+
+**/core/output.css
