@@ -14,5 +14,5 @@ opt:
 	[ -f "./.opt/daisyui.mjs" ] || curl -sLo .opt/daisyui.mjs https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.mjs
 	[ -f "./.opt/daisyui-theme.mjs" ] || curl -sLo .opt/daisyui-theme.mjs https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.mjs
 # run `just opt` to download necessary optional files before running this command. You can ignore the `sh: 1: watchman: not found` error (it will fallback to another watcher). This starts tailwind to watch HTML changes across the whole project and recompile the output.css.
-tw:
+tailwind:
 	./.opt/tailwindcss -i static/core/input.css -o static/core/output.css --watch
