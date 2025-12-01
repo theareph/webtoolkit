@@ -1,13 +1,18 @@
 dev:
 	DEBUG=true uv run manage.py runserver
 
-# Runs production server. Remember to run `just static` before running this script.
+# Runs production server.
 prod:
+	just static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
 
 static:
 	just tailwind-no-watch
 	uv run manage.py collectstatic --noinput
+
+static-no-cache:
+	rm static_root -r
+	just static
 
 opt:
 	mkdir -p .opt
