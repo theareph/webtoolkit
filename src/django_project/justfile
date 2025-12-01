@@ -6,10 +6,19 @@ prod:
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
 
 static:
+	just tailwind-no-watch
 	uv run manage.py collectstatic --noinput
 
 opt:
 	mkdir -p .opt
+
+	if [ ! -f "./.opt/input.css" ]; then \
+		echo '@import "tailwindcss";' > ./.opt/input.css; \
+		echo '@source not "./tailwindcss";' >> ./.opt/input.css; \
+		echo '@source not "./daisyui{,*}.mjs";' >> ./.opt/input.css; \
+		echo '@plugin "./daisyui.mjs";' >> ./.opt/input.css; \
+	fi
+
 	if [ ! -f "./.opt/tailwindcss" ]; then \
 		curl -Lo .opt/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64; \
 		chmod +x ./.opt/tailwindcss; \
@@ -17,6 +26,11 @@ opt:
 	[ -f "./.opt/daisyui.mjs" ] || curl -Lo .opt/daisyui.mjs https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.mjs
 	[ -f "./.opt/daisyui-theme.mjs" ] || curl -Lo .opt/daisyui-theme.mjs https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.mjs
 
-# run `just opt` to download necessary optional files before running this command. You can ignore the `sh: 1: watchman: not found` error (it will fallback to another watcher). This starts tailwind to watch HTML changes across the whole project and recompile the output.css.
+# You can ignore the `sh: 1: watchman: not found` error (it will fallback to another watcher). This starts tailwind to watch HTML changes across the whole project and recompile the output.css.
 tailwind:
-	./.opt/tailwindcss -i static/core/input.css -o static/core/output.css --watch
+	just opt
+	./.opt/tailwindcss -i ./.opt/input.css -o static/core/output.css --watch
+
+tailwind-no-watch:
+	just opt
+	./.opt/tailwindcss -i ./.opt/input.css -o static/core/output.css
