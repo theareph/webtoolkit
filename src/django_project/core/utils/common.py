@@ -7,7 +7,7 @@ from ..models import ShortenedURL, UploadedFile
 def get_paginated_items(
     query,
     page: int | None = None,
-    page_size: int = 10,
+    page_size: int = 5,
 ) -> Page[Model] | None:
     page = page or 1
     if page < 0:

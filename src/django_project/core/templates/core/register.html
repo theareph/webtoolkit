@@ -2,23 +2,40 @@
 
 
 {% block body %}
+<div class="navbar">
+
+  <div class="navbar-start"></div>
+  <div class="navbar-center">
+    <span class="text-xl">Register</span>
+  </div>
+  <div class="navbar-end"></div>
+</div>
 {% if errors %}
-<h3>Error:<h3>
-{% for e in errors %}
-    <p> {{ e }} </p>
-{% endfor %}
-<hr>
+<div class="alert alert-error">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>{% for e in errors %}{{ e }}{% endfor %}</span>
+</div>
 {% endif %}
-<h2>Register</h2>
+
+<div class="flex items-center justify-center">
 <form method="POST" id="register-form" hx-boost="false">
     {% csrf_token %}
-    username<br>
-    <input class="input" name="username" type="text"><br>
-    password<br>
-    <input class="input" name="password" type="password" id="password-input"><br>
-    confirm password<br>
-    <input class="input" name="password-confirm" type="password" id="password-confirm-input"><br>
+     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+  <legend class="fieldset-legend">Register</legend>
 
-    <button class="btn btn-primary" type="submit">Register</button>
+  <label class="label">Username</label>
+  <input type="text" class="input" placeholder="Username" name="username" />
+
+  <label class="label">Password</label>
+  <input type="password" class="input" placeholder="Password" name="password" />
+  <label class="label">Confirm Password</label>
+  <input type="password" class="input" placeholder="Password" name="password-confirm" />
+
+
+  <button class="btn btn-neutral mt-4" type="submit">Register</button>
+</fieldset>
 </form>
+</div>
 {% endblock body %}

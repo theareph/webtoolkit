@@ -94,6 +94,7 @@ class URLShortenerView(LoginRequiredMixin, View):
                 "-inserted_at"
             ),
             page,
+            page_size=3,
         )
 
     def get(self, request: HttpRequest):
@@ -175,6 +176,7 @@ class FileHostingView(LoginRequiredMixin, View):
                 "-inserted_at"
             ),
             page,
+            page_size=3,
         )
 
     def get(self, request):

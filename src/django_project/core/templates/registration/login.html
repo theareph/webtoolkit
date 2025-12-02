@@ -3,6 +3,15 @@
 
 {% block body %}
 
+<div class="navbar">
+
+  <div class="navbar-start"></div>
+  <div class="navbar-center">
+    <span class="text-xl">Login</span>
+  </div>
+  <div class="navbar-end"></div>
+</div>
+
 <div class="flex items-center justify-center">
 <form method="POST" id="login-form" hx-boost="false">
     {% csrf_token %}
