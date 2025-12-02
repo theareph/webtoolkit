@@ -52,12 +52,6 @@ class LoginView(DjangoLoginView):
     def get_context_data(self, **kwargs: t.Any) -> dict[str, t.Any]:
         return get_common_context() | super().get_context_data(**kwargs)
 
-    @t.override
-    def get_template_names(self) -> list[str]:
-        template_names = super().get_template_names()
-
-        return template_names
-
 
 class RegisterView(View):
     def get(self, request: HttpRequest):
