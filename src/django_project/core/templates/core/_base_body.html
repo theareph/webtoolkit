@@ -82,10 +82,33 @@
     </ul>
   </div>
 </div>
+    <div id="loadingScreen" class="hidden fixed inset-0 bg-base-100 bg-opacity-90 flex items-center justify-center flex-col z-50">
+         <span class="loading loading-spinner loading-xl"></span>
+    </div>
+
   {% block body %}{% endblock body %}
 
 </body>
 
 
 {% block after_body %}{% endblock after_body %}
+
+<script>
+        // HTMX event listeners for automatic loading screen
+        document.body.addEventListener('htmx:beforeRequest', async function(evt) {
+            document.getElementById('loadingScreen').classList.remove('hidden');
+        });
+
+        document.body.addEventListener('htmx:afterRequest', function(evt) {
+            document.getElementById('loadingScreen').classList.add('hidden');
+        });
+
+        document.body.addEventListener('htmx:beforeSwap', function(evt) {
+            // Keep loading screen visible during swap
+        });
+
+        document.body.addEventListener('htmx:afterSwap', function(evt) {
+            document.getElementById('loadingScreen').classList.add('hidden');
+        });
+</script>
 </html>
