@@ -10,7 +10,7 @@ prod: static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
 format: node-deps
 	uv run ruff check --select I --fix; uv run ruff format
-	bunx prettier --write **/*.html
+	bunx prettier --plugin=prettier-plugin-jinja-template --parser=jinja-template --write **/*.html
 
 static: tailwind-no-watch
 	uv run manage.py collectstatic --noinput
