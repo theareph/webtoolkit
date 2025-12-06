@@ -18,6 +18,7 @@ from .utils.common import (
     get_latest_uploaded_files,
     get_paginated_items,
 )
+from .utils.statistics import most_viewed_instances
 
 User = get_user_model()
 
@@ -36,8 +37,8 @@ def get_common_context() -> dict[str, t.Any]:
 def home(request):
     context = get_common_context()
     context |= {
-        "latest_urls": get_latest_shortened_urls(),
-        "latest_files": get_latest_uploaded_files(),
+        "trending_urls": most_viewed_instances(models.ShortenedURL.objects.filter(is_public=True).iterator(),),
+        "trending_files": most_viewed_instances(models.UploadedFile.objects.filter(is_public=True).iterator(),),
     }
 
     return render(

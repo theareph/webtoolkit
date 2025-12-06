@@ -5,6 +5,8 @@ python-deps:
 dev:
 	DEBUG=true uv run manage.py runserver
 
+migrate:
+	uv run manage.py migrate
 # Runs production server.
 prod: static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent

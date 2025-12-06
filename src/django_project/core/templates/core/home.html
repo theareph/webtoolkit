@@ -13,14 +13,14 @@
       </div>
     </div>
 
-    {% if latest_urls %}
+    {% if trending_urls %}
       <ul class="list bg-base-100 rounded-box shadow-md">
         <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-          Latest URLs (Public)
+          Trending Public URLs
         </li>
 
         <li class="list-row">
-          {% for item in latest_urls %}
+          {% for item in trending_urls %}
             <div>
               <div>
                 <a
@@ -35,14 +35,14 @@
         </li>
       </ul>
     {% endif %}
-    {% if latest_files %}
+    {% if trending_file %}
       <ul class="list bg-base-100 rounded-box shadow-md">
         <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-          Latest Files (Public)
+          Trending Public Files
         </li>
 
         <li class="list-row">
-          {% for item in latest_files %}
+          {% for item in tranding_files %}
             <div>
               <div>
                 <a
