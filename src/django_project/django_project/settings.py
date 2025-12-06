@@ -15,6 +15,7 @@ from pathlib import Path
 
 from colorama import Back, Fore, Style
 from environs import env
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+parsed_base_url = urlparse(env.str("BASE_URL"))
+BASE_URL_PATH = parsed_base_url.path or "/"
+REQUEST_BASE_URL = env.str("BASE_URL")
 
 
 DEBUG = env.bool("DEBUG", False)
@@ -68,6 +72,7 @@ INSTALLED_APPS = [
     "core",
     "django_cleanup.apps.CleanupConfig",
     "django_htmx",
+    "request",
 ]
 
 MIDDLEWARE = [
@@ -77,6 +82,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "request.middleware.RequestMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
