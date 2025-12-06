@@ -1,7 +1,6 @@
 node-deps:
 	bun i
-
-deps: node-deps
+python-deps:
 	uv sync
 dev:
 	DEBUG=true uv run manage.py runserver
@@ -43,3 +42,6 @@ tailwind: cache
 
 tailwind-no-watch: cache
 	./.cache/tailwindcss -i ./.cache/input.css -o static/core/output.css
+
+deps: cache node-deps python-deps
+
