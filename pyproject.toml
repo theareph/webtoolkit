@@ -10,6 +10,8 @@ dependencies = [
     "django-cleanup>=9.0.0",
     "django-extensions>=4.1",
     "django-htmx>=1.27.0",
+    "django-ipware>=7.0.1",
+    "django-request>=1.7.1",
     "django-stubs==5.2.*",
     "django-taggit>=6.1.0",
     "environs[django]>=14.5.0",
