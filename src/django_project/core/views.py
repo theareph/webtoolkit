@@ -37,8 +37,12 @@ def get_common_context() -> dict[str, t.Any]:
 def home(request):
     context = get_common_context()
     context |= {
-        "trending_urls": most_viewed_instances(models.ShortenedURL.objects.filter(is_public=True).iterator(),),
-        "trending_files": most_viewed_instances(models.UploadedFile.objects.filter(is_public=True).iterator(),),
+        "trending_urls": most_viewed_instances(
+            models.ShortenedURL.objects.filter(is_public=True).iterator(),
+        ),
+        "trending_files": most_viewed_instances(
+            models.UploadedFile.objects.filter(is_public=True).iterator(),
+        ),
     }
 
     return render(
