@@ -1,4 +1,5 @@
-{% extends 'core/_base.html' %} {% block body %}
+{% extends 'core/_base.html' %}
+{% block body %}
   <div class="navbar">
     <div class="navbar-start"></div>
     <div class="navbar-center">
@@ -24,7 +25,8 @@
       </svg>
       <span>{% for e in errors %}{{ e }}{% endfor %}</span>
     </div>
-  {% endif %} {% if shortened_url %}
+  {% endif %}
+  {% if shortened_url %}
     <div role="alert" class="alert alert-success">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -40,10 +42,10 @@
         />
       </svg>
       <span
-      >Success! The short URL is
-        <a class="link" href="{{ shortened_url }}">{{ shortened_url}}</a></span
-        >
-      </div>
+        >Success! The short URL is
+        <a class="link" href="{{ shortened_url }}">{{ shortened_url }}</a></span
+      >
+    </div>
   {% endif %}
 
   <div class="flex items-center justify-center">
@@ -65,59 +67,60 @@
         value="is_public"
         id="is-public-input"
       /><label for="is-public-input"
-      >Public? (Public URLs could be listed publicly. This does not affect the
+        >Public? (Public URLs could be listed publicly. This does not affect the
         accessibility of the link)</label
-        ><br /><br />
-        <button type="submit" class="btn btn-primary">Shorten!</button>
-      </form>
-    </div>
-    {% if page %}
+      ><br /><br />
+      <button type="submit" class="btn btn-primary">Shorten!</button>
+    </form>
+  </div>
+  {% if page %}
+    <div class="flex items-center justify-center">
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+          Shortened URLs
+        </li>
 
-      <div class="flex items-center justify-center">
-        <ul class="list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Shortened URLs</li>
-
-          {% for item in page.object_list %}
-
-            <li class="list-row">
-              <div class="list-col-grow">
-                <div>
-                  <a
-                    hx-boost="false"
-                    class="link"
-                    href="{% url 'core:url_shortener_url' item.alias %}"
-                  >{{ item.url_display }} ({{ item.visibility }})</a
-                    >
-                  </div>
-                </div>
+        {% for item in page.object_list %}
+          <li class="list-row">
+            <div class="list-col-grow">
+              <div>
                 <a
-                  class="btn btn-neutral"
-                  href="{% url 'core:url_shortener_url_delete' item.alias %}?page={{ page.number }}"
+                  hx-boost="false"
+                  class="link"
+                  href="{% url 'core:url_shortener_url' item.alias %}"
+                  >{{ item.url_display }} ({{ item.visibility }})</a
                 >
-                  Delete
-                </a>
-              </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <br />
-
-      <div class="flex items-center justify-center">
-        <div class="join grid grid-cols-2">
-          {% if page.has_previous %}
+              </div>
+            </div>
             <a
-              class="join-item btn btn-outline"
-              href="{% url 'core:url_shortener' %}?page={{page.previous_page_number}}"
+              class="btn btn-neutral"
+              href="{% url 'core:url_shortener_url_delete' item.alias %}?page={{ page.number }}"
+            >
+              Delete
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <br />
+
+    <div class="flex items-center justify-center">
+      <div class="join grid grid-cols-2">
+        {% if page.has_previous %}
+          <a
+            class="join-item btn btn-outline"
+            href="{% url 'core:url_shortener' %}?page={{ page.previous_page_number }}"
             >Previous</a
-              >
-
-          {% endif %} {% if page.has_next %}
-            <a
-              class="join-item btn btn-outline"
-              href="{% url 'core:url_shortener' %}?page={{page.next_page_number}}"
+          >
+        {% endif %}
+        {% if page.has_next %}
+          <a
+            class="join-item btn btn-outline"
+            href="{% url 'core:url_shortener' %}?page={{ page.next_page_number }}"
             >Next</a
-              >
-          {% endif %}
-        </div>
+          >
+        {% endif %}
       </div>
-    {% endif %} {% endblock body %}
+    </div>
+  {% endif %}
+{% endblock body %}

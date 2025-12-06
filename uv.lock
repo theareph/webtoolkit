@@ -180,15 +180,6 @@ wheels = [
 ]
 
 [[package]]
-name = "djhtml"
-version = "3.0.10"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/76/dc/7d2a8e1e2a5054a50c328e02b4704179b80a8fbf0535bde793d85840c669/djhtml-3.0.10.tar.gz", hash = "sha256:dd4ebf778d3b7da7a6e6970f7e66740f08ed7485485491b9a80527f526c838d9", size = 28414, upload-time = "2025-10-08T12:03:05.291Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f4/f4/236b8a9f28b2fa1301d0b6eb15b4ce86d03215afaa02fe12913003f97103/djhtml-3.0.10-py3-none-any.whl", hash = "sha256:d6efbe6001008d730ede5c21944a427a76c901c6cd168c138e494d2a1091e0b9", size = 26633, upload-time = "2025-10-08T12:03:17.172Z" },
-]
-
-[[package]]
 name = "environs"
 version = "14.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -570,7 +561,6 @@ dependencies = [
     { name = "django-htmx" },
     { name = "django-stubs" },
     { name = "django-taggit" },
-    { name = "djhtml" },
     { name = "environs", extra = ["django"] },
     { name = "gunicorn", extra = ["gevent"] },
     { name = "ipython" },
@@ -587,7 +577,6 @@ requires-dist = [
     { name = "django-htmx", specifier = ">=1.27.0" },
     { name = "django-stubs", specifier = "==5.2.*" },
     { name = "django-taggit", specifier = ">=6.1.0" },
-    { name = "djhtml", specifier = ">=3.0.10" },
     { name = "environs", extras = ["django"], specifier = ">=14.5.0" },
     { name = "gunicorn", extras = ["gevent"], specifier = ">=23.0.0" },
     { name = "ipython", specifier = ">=9.7.0" },

@@ -1,4 +1,5 @@
-{% extends 'core/_base.html' %} {% block body %}
+{% extends 'core/_base.html' %}
+{% block body %}
   <div class="navbar">
     <div class="navbar-start"></div>
     <div class="navbar-center">
@@ -34,7 +35,12 @@
         <legend class="fieldset-legend">Register</legend>
 
         <label class="label">Username</label>
-        <input type="text" class="input" placeholder="Username" name="username" />
+        <input
+          type="text"
+          class="input"
+          placeholder="Username"
+          name="username"
+        />
 
         <label class="label">Password</label>
         <input

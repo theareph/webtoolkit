@@ -1,5 +1,5 @@
-{% extends 'core/_base.html' %} {% block body %}
-
+{% extends 'core/_base.html' %}
+{% block body %}
   <div class="max-w-md mx-auto">
     <div class="card bg-base-100 shadow-sm">
       <div class="card-body">
@@ -7,56 +7,55 @@
         <p>
           Source Code (Host Your Own):
           <a class="link" href="https://github.com/ar3ph/webtoolkit"
-          >https://github.com/ar3ph/webtoolkit</a
-            >
-          </p>
-        </div>
+            >https://github.com/ar3ph/webtoolkit</a
+          >
+        </p>
       </div>
-
-      {% if latest_urls %}
-
-        <ul class="list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-            Latest URLs (Public)
-          </li>
-
-          <li class="list-row">
-            {% for item in latest_urls %}
-              <div>
-                <div>
-                  <a
-                    hx-boost="false"
-                    class="link"
-                    href="{% url 'core:url_shortener_url' item.alias %}"
-                  >{{ item.url_display }}</a
-                    >
-                  </div>
-                </div>
-            {% endfor %}
-          </li>
-        </ul>
-
-      {% endif %} {% if latest_files %}
-        <ul class="list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-            Latest Files (Public)
-          </li>
-
-          <li class="list-row">
-            {% for item in latest_files %}
-              <div>
-                <div>
-                  <a
-                    hx-boost="false"
-                    class="link"
-                    href="{% url 'core:file_redirect' item.alias_filename %}"
-                  >{{ item.filename }} ({{item.file_size_mb}} MB)</a
-                    >
-                  </div>
-                </div>
-            {% endfor %}
-          </li>
-        </ul>
-      {% endif %}
     </div>
+
+    {% if latest_urls %}
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+          Latest URLs (Public)
+        </li>
+
+        <li class="list-row">
+          {% for item in latest_urls %}
+            <div>
+              <div>
+                <a
+                  hx-boost="false"
+                  class="link"
+                  href="{% url 'core:url_shortener_url' item.alias %}"
+                  >{{ item.url_display }}</a
+                >
+              </div>
+            </div>
+          {% endfor %}
+        </li>
+      </ul>
+    {% endif %}
+    {% if latest_files %}
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+          Latest Files (Public)
+        </li>
+
+        <li class="list-row">
+          {% for item in latest_files %}
+            <div>
+              <div>
+                <a
+                  hx-boost="false"
+                  class="link"
+                  href="{% url 'core:file_redirect' item.alias_filename %}"
+                  >{{ item.filename }} ({{ item.file_size_mb }} MB)</a
+                >
+              </div>
+            </div>
+          {% endfor %}
+        </li>
+      </ul>
+    {% endif %}
+  </div>
 {% endblock body %}

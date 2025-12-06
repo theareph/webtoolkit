@@ -1,5 +1,5 @@
-{% extends 'core/_base.html' %} {% block body %}
-
+{% extends 'core/_base.html' %}
+{% block body %}
   <div class="navbar">
     <div class="navbar-start"></div>
     <div class="navbar-center">
@@ -12,12 +12,12 @@
     <div class="stats shadow">
       <div class="stat place-items-center">
         <div class="stat-title">Shortened URLs</div>
-        <div class="stat-value">{{total_shortened_urls}}</div>
+        <div class="stat-value">{{ total_shortened_urls }}</div>
       </div>
 
       <div class="stat place-items-center">
         <div class="stat-title">Uploaded Files</div>
-        <div class="stat-value text-secondary">{{total_uploaded_files}}</div>
+        <div class="stat-value text-secondary">{{ total_uploaded_files }}</div>
       </div>
     </div>
   </div>

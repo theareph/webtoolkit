@@ -1,3 +1,6 @@
+deps:
+	npm i
+	uv sync
 dev:
 	DEBUG=true uv run manage.py runserver
 
@@ -6,7 +9,7 @@ prod: static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
 format:
 	uv run ruff check --select I --fix; uv run ruff format
-	uv run djhtml .
+	npx prettier --write **/*.html
 
 static: tailwind-no-watch
 	uv run manage.py collectstatic --noinput

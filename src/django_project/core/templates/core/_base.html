@@ -48,138 +48,140 @@
             <li><a class="link" href="{% url 'core:home' %}">Home</a></li>
             <li>
               <a class="link" href="{% url 'core:url_shortener' %}"
-              >URL Shortener</a
+                >URL Shortener</a
+              >
+            </li>
+            <li>
+              <a class="link" href="{% url 'core:file_hosting' %}"
+                >File Hosting</a
+              >
+            </li>
+            {% if request.user.is_authenticated %}
+              <li>
+                <a
+                  class="link"
+                  href="#"
+                  id="logout-btn"
+                  onclick="logout()"
+                  hx-boost="false"
+                  >Logout</a
                 >
               </li>
+
               <li>
-                <a class="link" href="{% url 'core:file_hosting' %}"
-                >File Hosting</a
-                  >
-                </li>
-                {% if request.user.is_authenticated %}
+                <a class="link" href="{% url 'core:about_user' %}">About</a>
+              </li>
+            {% else %}
+              <li><a class="link" href="{% url 'core:login' %}">Login</a></li>
 
-                  <li>
-                    <a
-                      class="link"
-                      href="#"
-                      id="logout-btn"
-                      onclick="logout()"
-                      hx-boost="false"
-                    >Logout</a
-                      >
-                    </li>
-
-                    <li>
-                      <a class="link" href="{% url 'core:about_user' %}">About</a>
-                    </li>
-                {% else %}
-
-                  <li><a class="link" href="{% url 'core:login' %}">Login</a></li>
-
-                  {% if enable_registration %}
-                    <li>
-                      <a class="link" href="{% url 'core:register' %}">Register</a>
-                    </li>
-                  {% endif %} {% endif %}
-              </ul>
-            </div>
-            <a class="btn btn-ghost text-xl" href="/">Web Toolkit</a>
-          </div>
-          <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
-              <li><a class="link" href="{% url 'core:home' %}">Home</a></li>
-              <li>
-                <a class="link" href="{% url 'core:url_shortener' %}"
-                >URL Shortener</a
-                  >
-                </li>
+              {% if enable_registration %}
                 <li>
-                  <a class="link" href="{% url 'core:file_hosting' %}"
-                  >File Hosting</a
-                    >
-                  </li>
-                  {% if request.user.is_authenticated %}
-
-                    <li>
-                      <a
-                        class="link"
-                        href="#"
-                        id="logout-btn"
-                        onclick="logout()"
-                        hx-boost="false"
-                      >Logout</a
-                        >
-                      </li>
-                      <form
-                        id="logout-form"
-                        action="{% url 'logout' %}"
-                        method="POST"
-                        style="display: none"
-                        hx-boost="false"
-                      >
-                        {% csrf_token %}
-                      </form>
-
-                      <li><a class="link" href="{% url 'core:about_user' %}">About</a></li>
-                  {% else %}
-
-                    <li><a class="link" href="{% url 'core:login' %}">Login</a></li>
-
-                    {% if enable_registration %}
-                      <li><a class="link" href="{% url 'core:register' %}">Register</a></li>
-                    {% endif %} {% endif %}
-                </ul>
-              </div>
-            </div>
-            <div
-              id="loadingScreen"
-              class="hidden fixed inset-0 bg-base-100 bg-opacity-90 flex items-center justify-center flex-col z-50"
+                  <a class="link" href="{% url 'core:register' %}">Register</a>
+                </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+        <a class="btn btn-ghost text-xl" href="/">Web Toolkit</a>
+      </div>
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          <li><a class="link" href="{% url 'core:home' %}">Home</a></li>
+          <li>
+            <a class="link" href="{% url 'core:url_shortener' %}"
+              >URL Shortener</a
             >
-              <span class="loading loading-spinner loading-xl"></span>
-            </div>
+          </li>
+          <li>
+            <a class="link" href="{% url 'core:file_hosting' %}"
+              >File Hosting</a
+            >
+          </li>
+          {% if request.user.is_authenticated %}
+            <li>
+              <a
+                class="link"
+                href="#"
+                id="logout-btn"
+                onclick="logout()"
+                hx-boost="false"
+                >Logout</a
+              >
+            </li>
+            <form
+              id="logout-form"
+              action="{% url 'logout' %}"
+              method="POST"
+              style="display: none"
+              hx-boost="false"
+            >
+              {% csrf_token %}
+            </form>
 
-            {% block body %}{% endblock body %}
-          </body>
+            <li>
+              <a class="link" href="{% url 'core:about_user' %}">About</a>
+            </li>
+          {% else %}
+            <li><a class="link" href="{% url 'core:login' %}">Login</a></li>
 
-          {% block after_body %}{% endblock after_body %}
+            {% if enable_registration %}
+              <li>
+                <a class="link" href="{% url 'core:register' %}">Register</a>
+              </li>
+            {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div
+      id="loadingScreen"
+      class="hidden fixed inset-0 bg-base-100 bg-opacity-90 flex items-center justify-center flex-col z-50"
+    >
+      <span class="loading loading-spinner loading-xl"></span>
+    </div>
 
-          <script>
+    {% block body %}{% endblock body %}
+  </body>
+
+  {% block after_body %}{% endblock after_body %}
+
+  <script>
     // HTMX event listeners for automatic loading screen
-            document.body.addEventListener("htmx:beforeRequest", async function (evt) {
-              document.getElementById("loadingScreen").classList.remove("hidden");
-            });
+    document.body.addEventListener("htmx:beforeRequest", async function (evt) {
+      document.getElementById("loadingScreen").classList.remove("hidden");
+    });
 
-            document.body.addEventListener("htmx:afterRequest", function (evt) {
-              document.getElementById("loadingScreen").classList.add("hidden");
-            });
+    document.body.addEventListener("htmx:afterRequest", function (evt) {
+      document.getElementById("loadingScreen").classList.add("hidden");
+    });
 
-            document.body.addEventListener("htmx:beforeSwap", function (evt) {
+    document.body.addEventListener("htmx:beforeSwap", function (evt) {
       // Keep loading screen visible during swap
-            });
+    });
 
-            document.body.addEventListener("htmx:afterSwap", function (evt) {
-              document.getElementById("loadingScreen").classList.add("hidden");
-            });
-            function logout() {
-              document.querySelector("#logout-form").submit();
-            }
+    document.body.addEventListener("htmx:afterSwap", function (evt) {
+      document.getElementById("loadingScreen").classList.add("hidden");
+    });
+    function logout() {
+      document.querySelector("#logout-form").submit();
+    }
 
-            function register() {
-              const registerFormBtn = document.querySelector("#register-form-btn");
-              if (registerFormBtn) {
-                registerFormBtn.addEventListener("click", () => {
-                  const passwordInput = document.querySelector("#password-input");
-                  const passwordConfirmInput = document.querySelector(
-                    "#password-confirm-input",
-                  );
-                  if (passwordInput.value !== passwordConfirmInput.value) {
-                    passwordInput.classList.add("red-border");
-                  } else {
-                    passwordInput.classList.remove("red-border");
-                    document.querySelector("#register-form").submit();
-                  }
-                });
-              }
-            }
-          </script>
-        </html>
+    function register() {
+      const registerFormBtn = document.querySelector("#register-form-btn");
+      if (registerFormBtn) {
+        registerFormBtn.addEventListener("click", () => {
+          const passwordInput = document.querySelector("#password-input");
+          const passwordConfirmInput = document.querySelector(
+            "#password-confirm-input",
+          );
+          if (passwordInput.value !== passwordConfirmInput.value) {
+            passwordInput.classList.add("red-border");
+          } else {
+            passwordInput.classList.remove("red-border");
+            document.querySelector("#register-form").submit();
+          }
+        });
+      }
+    }
+  </script>
+</html>

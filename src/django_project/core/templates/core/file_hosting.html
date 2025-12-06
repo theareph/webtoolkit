@@ -1,5 +1,5 @@
-{% extends 'core/_base.html' %} {% block body %}
-
+{% extends 'core/_base.html' %}
+{% block body %}
   <div class="navbar">
     <div class="navbar-start"></div>
     <div class="navbar-center">
@@ -24,7 +24,8 @@
       </svg>
       <span>{% for e in errors %}{{ e }}{% endfor %}</span>
     </div>
-  {% endif %} {% if file_url %}
+  {% endif %}
+  {% if file_url %}
     <div role="alert" class="alert alert-success">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -40,10 +41,10 @@
         />
       </svg>
       <span
-      >Success! The uploaded file is
-        <a class="link" href="{{ file_url }}">{{ file_url}}</a></span
-        >
-      </div>
+        >Success! The uploaded file is
+        <a class="link" href="{{ file_url }}">{{ file_url }}</a></span
+      >
+    </div>
   {% endif %}
 
   <div class="flex items-center justify-center">
@@ -68,60 +69,60 @@
         class="checkbox"
       />
       <label for="is-public-input"
-      >Public? (Public files could be listed publicly. This does not affect the
-        accessibility of the link)</label
-        ><br /><br />
-        <button type="submit" class="btn btn-primary">Upload!</button>
-      </form>
-    </div>
-    {% if page %}
+        >Public? (Public files could be listed publicly. This does not affect
+        the accessibility of the link)</label
+      ><br /><br />
+      <button type="submit" class="btn btn-primary">Upload!</button>
+    </form>
+  </div>
+  {% if page %}
+    <div class="flex items-center justify-center">
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+          Uploaded Files
+        </li>
 
-      <div class="flex items-center justify-center">
-        <ul class="list bg-base-100 rounded-box shadow-md">
-          <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Uploaded Files</li>
-
-          {% for item in page.object_list %}
-
-            <li class="list-row">
-              <div class="list-col-grow">
-                <div>
-                  <a
-                    hx-boost="false"
-                    class="link"
-                    href="{% url 'core:file_redirect' item.alias_filename %}"
-                  >{{ item.filename }} ({{item.file_size_mb}} MB, {{ item.visibility
-                    }})</a
-                    >
-                  </div>
-                </div>
-
+        {% for item in page.object_list %}
+          <li class="list-row">
+            <div class="list-col-grow">
+              <div>
                 <a
-                  class="btn btn-neutral"
-                  href="{% url 'core:file_delete' item.alias_filename %}?page={{ page.number }}"
-                >Delete</a
-                  >
-                </li>
-          {% endfor %}
-        </ul>
-      </div>
+                  hx-boost="false"
+                  class="link"
+                  href="{% url 'core:file_redirect' item.alias_filename %}"
+                  >{{ item.filename }} ({{ item.file_size_mb }} MB,
+                  {{ item.visibility }})</a
+                >
+              </div>
+            </div>
 
-      <div class="flex items-center justify-center">
-        <div class="join grid grid-cols-2">
-          {% if page.has_previous %}
             <a
-              class="join-item btn btn-outline"
-              href="{% url 'core:file_hosting' %}?page={{page.previous_page_number}}"
+              class="btn btn-neutral"
+              href="{% url 'core:file_delete' item.alias_filename %}?page={{ page.number }}"
+              >Delete</a
+            >
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="flex items-center justify-center">
+      <div class="join grid grid-cols-2">
+        {% if page.has_previous %}
+          <a
+            class="join-item btn btn-outline"
+            href="{% url 'core:file_hosting' %}?page={{ page.previous_page_number }}"
             >Previous</a
-              >
-
-          {% endif %} {% if page.has_next %}
-            <a
-              class="join-item btn btn-outline"
-              href="{% url 'core:file_hosting' %}?page={{page.next_page_number}}"
+          >
+        {% endif %}
+        {% if page.has_next %}
+          <a
+            class="join-item btn btn-outline"
+            href="{% url 'core:file_hosting' %}?page={{ page.next_page_number }}"
             >Next</a
-              >
-          {% endif %}
-        </div>
+          >
+        {% endif %}
       </div>
-
-    {% endif %} {% endblock body %}
+    </div>
+  {% endif %}
+{% endblock body %}
