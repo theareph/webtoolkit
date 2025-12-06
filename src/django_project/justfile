@@ -4,6 +4,11 @@ dev:
 # Runs production server.
 prod: static
 	uv run gunicorn django_project.wsgi:application --workers `nproc` --worker-class gevent
+format:
+	ruff check --select I --fix; ruff format
+prettier:
+	[ -x "$(which npx)" ] && npx prettier --write "**/*.{html,css,js}"
+format-all: format prettier
 
 static: tailwind-no-watch
 	uv run manage.py collectstatic --noinput

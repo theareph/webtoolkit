@@ -1,8 +1,6 @@
-{% extends 'core/_base.html' %}
-{% block body %}
+{% extends 'core/_base.html' %} {% block body %}
 
 <div class="navbar">
-
   <div class="navbar-start"></div>
   <div class="navbar-center">
     <span class="text-xl">File Hosting</span>
@@ -11,64 +9,119 @@
 </div>
 {% if errors %}
 <div class="alert alert-error">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
   </svg>
   <span>{% for e in errors %}{{ e }}{% endfor %}</span>
 </div>
-{% endif %}
-{% if file_url %}
+{% endif %} {% if file_url %}
 <div role="alert" class="alert alert-success">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
   </svg>
-  <span>Success! The uploaded file is <a class="link" href="{{ file_url }}">{{ file_url}}</a></span>
+  <span
+    >Success! The uploaded file is
+    <a class="link" href="{{ file_url }}">{{ file_url}}</a></span
+  >
 </div>
 {% endif %}
 
 <div class="flex items-center justify-center">
-<form action="{% url "core:file_hosting" %}" method="POST" enctype="multipart/form-data">
+  <form
+    action="{% url 'core:file_hosting' %}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
     {% csrf_token %}
-    <input class="file-input file-input-primary" name="file" type="file" id="file-input"> (Max Size: {{ file_hosting_max_size_mb }} MB )<br><br>
-    <input name="is_public" type="checkbox" id="is-public-input" value="is_public" class="checkbox"> <label for="is-public-input">Public? (Public files could be listed publicly. This does not affect the accessibility of the link)</label><br><br>
-    <button type="submit" class="btn btn-primary" >Upload!</button>
-</form>
+    <input
+      class="file-input file-input-primary"
+      name="file"
+      type="file"
+      id="file-input"
+    />
+    (Max Size: {{ file_hosting_max_size_mb }} MB )<br /><br />
+    <input
+      name="is_public"
+      type="checkbox"
+      id="is-public-input"
+      value="is_public"
+      class="checkbox"
+    />
+    <label for="is-public-input"
+      >Public? (Public files could be listed publicly. This does not affect the
+      accessibility of the link)</label
+    ><br /><br />
+    <button type="submit" class="btn btn-primary">Upload!</button>
+  </form>
 </div>
 {% if page %}
 
 <div class="flex items-center justify-center">
-<ul class="list bg-base-100 rounded-box shadow-md">
-  
-  <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Uploaded Files</li>
-  
-  {% for item in page.object_list %}
+  <ul class="list bg-base-100 rounded-box shadow-md">
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Uploaded Files</li>
 
-  <li class="list-row">
-    <div class="list-col-grow">
-    <div><a hx-boost="false" class="link" href="{% url "core:file_redirect" item.alias_filename %}">{{ item.filename }} ({{item.file_size_mb}} MB, {{ item.visibility }})</a></div> 
-    </div>
+    {% for item in page.object_list %}
 
-<a class="btn btn-neutral" href="{% url "core:file_delete" item.alias_filename %}?page={{ page.number }}">Delete</a>
-  </li>
-  {% endfor %}
-  
-</ul>
+    <li class="list-row">
+      <div class="list-col-grow">
+        <div>
+          <a
+            hx-boost="false"
+            class="link"
+            href="{% url 'core:file_redirect' item.alias_filename %}"
+            >{{ item.filename }} ({{item.file_size_mb}} MB, {{ item.visibility
+            }})</a
+          >
+        </div>
+      </div>
+
+      <a
+        class="btn btn-neutral"
+        href="{% url 'core:file_delete' item.alias_filename %}?page={{ page.number }}"
+        >Delete</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
 </div>
-
 
 <div class="flex items-center justify-center">
-<div class="join grid grid-cols-2">
+  <div class="join grid grid-cols-2">
+    {% if page.has_previous %}
+    <a
+      class="join-item btn btn-outline"
+      href="{% url 'core:file_hosting' %}?page={{page.previous_page_number}}"
+      >Previous</a
+    >
 
-{% if page.has_previous %}
-  <a class="join-item btn btn-outline" href="{% url "core:file_hosting" %}?page={{page.previous_page_number}}">Previous</a>
-
-{% endif %}
-
-{% if page.has_next %}
-  <a class="join-item btn btn-outline" href="{% url "core:file_hosting" %}?page={{page.next_page_number}}">Next</a>
-{% endif %}
+    {% endif %} {% if page.has_next %}
+    <a
+      class="join-item btn btn-outline"
+      href="{% url 'core:file_hosting' %}?page={{page.next_page_number}}"
+      >Next</a
+    >
+    {% endif %}
+  </div>
 </div>
-</div>
 
-{% endif %}
-{% endblock body %}
+{% endif %} {% endblock body %}

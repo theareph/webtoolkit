@@ -1,9 +1,5 @@
-{% extends 'core/_base.html' %}
-
-
-{% block body %}
+{% extends 'core/_base.html' %} {% block body %}
 <div class="navbar">
-
   <div class="navbar-start"></div>
   <div class="navbar-center">
     <span class="text-xl">Register</span>
@@ -12,30 +8,51 @@
 </div>
 {% if errors %}
 <div class="alert alert-error">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
   </svg>
   <span>{% for e in errors %}{{ e }}{% endfor %}</span>
 </div>
 {% endif %}
 
 <div class="flex items-center justify-center">
-<form method="POST" id="register-form" hx-boost="false">
+  <form method="POST" id="register-form" hx-boost="false">
     {% csrf_token %}
-     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-  <legend class="fieldset-legend">Register</legend>
+    <fieldset
+      class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+    >
+      <legend class="fieldset-legend">Register</legend>
 
-  <label class="label">Username</label>
-  <input type="text" class="input" placeholder="Username" name="username" />
+      <label class="label">Username</label>
+      <input type="text" class="input" placeholder="Username" name="username" />
 
-  <label class="label">Password</label>
-  <input type="password" class="input" placeholder="Password" name="password" />
-  <label class="label">Confirm Password</label>
-  <input type="password" class="input" placeholder="Password" name="password-confirm" />
+      <label class="label">Password</label>
+      <input
+        type="password"
+        class="input"
+        placeholder="Password"
+        name="password"
+      />
+      <label class="label">Confirm Password</label>
+      <input
+        type="password"
+        class="input"
+        placeholder="Password"
+        name="password-confirm"
+      />
 
-
-  <button class="btn btn-neutral mt-4" type="submit">Register</button>
-</fieldset>
-</form>
+      <button class="btn btn-neutral mt-4" type="submit">Register</button>
+    </fieldset>
+  </form>
 </div>
 {% endblock body %}
