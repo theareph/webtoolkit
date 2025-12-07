@@ -3,20 +3,26 @@ import typing as t
 import uuid
 from collections.abc import Sequence
 
+import request
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-import request
 from request.models import Request
 
 from .utils.url_shortener import available_chars, generate_alias
 
 User = get_user_model()
 
+
 class StatisticsModelMixin(models.Model):
     class Meta:
         abstract = True
-    requests = models.ManyToManyField(Request, blank=True,)
+
+    requests = models.ManyToManyField(
+        Request,
+        blank=True,
+    )
+
 
 class ReversableModelMixin:
     @property
@@ -41,7 +47,11 @@ class ReversableModelMixin:
 
 
 # Create your models here.
-class ShortenedURL(StatisticsModelMixin, ReversableModelMixin, models.Model,):
+class ShortenedURL(
+    StatisticsModelMixin,
+    ReversableModelMixin,
+    models.Model,
+):
     alias = models.TextField()
     url = models.TextField()
     owner = models.ForeignKey(
@@ -93,7 +103,11 @@ def uploaded_filename(_instance, filename):
     return "/".join(["uploaded_files", uuid.uuid4().hex, filename])
 
 
-class UploadedFile(StatisticsModelMixin, ReversableModelMixin, models.Model,):
+class UploadedFile(
+    StatisticsModelMixin,
+    ReversableModelMixin,
+    models.Model,
+):
     alias = models.TextField()
     ext = models.TextField(
         null=True,

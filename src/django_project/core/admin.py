@@ -5,7 +5,10 @@ from . import models
 
 @admin.register(models.ShortenedURL)
 class ShortenedURLAdmin(admin.ModelAdmin):  # pyright: ignore[reportMissingTypeArgument]
-    raw_id_fields = ["owner", "requests",]
+    raw_id_fields = [
+        "owner",
+        "requests",
+    ]
     list_display = ["alias", "url_display", "owner"]
     readonly_fields = ["inserted_at", "updated_at"]
 

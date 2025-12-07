@@ -4,21 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0003_shortenedurl_is_public_uploadedfile_is_public'),
-        ('request', '0008_alter_request_response_choices'),
+        ("core", "0003_shortenedurl_is_public_uploadedfile_is_public"),
+        ("request", "0008_alter_request_response_choices"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='shortenedurl',
-            name='requests',
-            field=models.ManyToManyField(blank=True, to='request.request'),
+            model_name="shortenedurl",
+            name="requests",
+            field=models.ManyToManyField(blank=True, to="request.request"),
         ),
         migrations.AddField(
-            model_name='uploadedfile',
-            name='requests',
-            field=models.ManyToManyField(blank=True, to='request.request'),
+            model_name="uploadedfile",
+            name="requests",
+            field=models.ManyToManyField(blank=True, to="request.request"),
         ),
     ]

@@ -1,10 +1,13 @@
-from ipware import get_client_ip
 from django.http import HttpRequest
+from ipware import get_client_ip
+
+
 class RealIPMiddleware:
     TRUSTED_PROXIES = {
         "127.0.0.1",
         "::1",
     }
+
     def __init__(self, get_response):
         self.get_response = get_response
 
