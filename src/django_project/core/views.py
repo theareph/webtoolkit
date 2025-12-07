@@ -40,13 +40,13 @@ def home(request):
         "trending_urls": [
             x["instance"]
             for x in most_viewed_instances(
-                models.ShortenedURL.objects.filter(is_public=True).iterator(),
+                models.ShortenedURL.objects.filter(is_public=True),
             )
         ],
         "trending_files": [
             x["instance"]
             for x in most_viewed_instances(
-                models.UploadedFile.objects.filter(is_public=True).iterator(),
+                models.UploadedFile.objects.filter(is_public=True),
             )
         ],
     }

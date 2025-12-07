@@ -81,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "core.middleware.real_ip.RealIPMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "request.middleware.RequestMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",

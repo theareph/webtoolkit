@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.ShortenedURL)
 class ShortenedURLAdmin(admin.ModelAdmin):  # pyright: ignore[reportMissingTypeArgument]
-    raw_id_fields = ["owner"]
+    raw_id_fields = ["owner", "requests",]
     list_display = ["alias", "url_display", "owner"]
     readonly_fields = ["inserted_at", "updated_at"]
 
@@ -15,6 +15,6 @@ class ShortenedURLAdmin(admin.ModelAdmin):  # pyright: ignore[reportMissingTypeA
 
 @admin.register(models.UploadedFile)
 class ShortenedURLAdmin(admin.ModelAdmin):  # pyright: ignore[reportMissingTypeArgument]
-    raw_id_fields = ["owner"]
+    raw_id_fields = ["owner", "requests"]
     list_display = ["alias", "ext", "file", "owner"]
     readonly_fields = ["inserted_at", "updated_at"]
